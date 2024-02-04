@@ -36,6 +36,7 @@ export class AifeedbackComponent implements OnInit {
 
       this.subscription = this.sharedService.currentData.subscribe(data => {
         const prompt = "Given this: " + JSON.stringify(data) + "Describe to me in words what you think about what is around me in a 15 minutes walk radius and how it could be improved like you would talk to a regular person (Only 100 words and write empty lines to make it clear)";
+        
         if (data) {
           this.generateAnswer(prompt);
         }
