@@ -54,7 +54,6 @@ export class AifeedbackComponent implements OnInit {
       gym: 6,
       hospital: 7,
       bus: 8,
-      metro: 9
     }
     console.log(testCount);
     this.sharedService.updateData(testCount);

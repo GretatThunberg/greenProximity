@@ -8,5 +8,4 @@ export interface Count {
     gym: number;
     hospital: number;
     bus: number;
-    metro: number;
 }

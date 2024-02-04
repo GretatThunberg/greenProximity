@@ -35,7 +35,6 @@ export class SharedServiceService {
     const school = temp[2].length;
     const parc = temp[4].length;
     const bus = temp[3].length;
-    const metro = temp[9].length;
 
     const data: Count = {
       gym: gym,
@@ -46,7 +45,6 @@ export class SharedServiceService {
       school: school,
       park: parc,
       bus: bus,
-      metro: metro
     };
 
     this.updateData(data)

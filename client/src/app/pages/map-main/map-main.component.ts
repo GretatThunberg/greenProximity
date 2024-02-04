@@ -77,6 +77,7 @@ export class MapMainComponent implements OnInit, AfterViewInit {
 
         // You can execute your custom action here with the coordinates
         this.processClickedLocation(latLng.lat(), latLng.lng());
+        this.drawSearchRadiusCircle(latLng.lat(), latLng.lng(), 800);
     }
 
     // Method to handle address input changes
@@ -94,7 +95,7 @@ export class MapMainComponent implements OnInit, AfterViewInit {
 
     // Method to execute custom action with coordinates
     processClickedLocation(latitude: number, longitude: number): void {
-        const placeTypes = ['restaurant', 'hospital', 'school', 'bus_station', 'parc', 'grocery_store', 'health clinic', 'drug_store', 'gym', 'metro_station']; // Define place types
+        const placeTypes = ['restaurant', 'hospital', 'school', 'bus_station', 'park', 'grocery_store', 'doctor', 'pharmacy', 'gym']; // Define place types
         //let promises = placeTypes.map(placeType => this.searchNearbyPlaces(latitude, longitude, placeType));
 
         let promiseChain = Promise.resolve();
@@ -120,7 +121,7 @@ export class MapMainComponent implements OnInit, AfterViewInit {
                 const placesService = new google.maps.places.PlacesService(this.map);
                 const request = {
                     location: new google.maps.LatLng(latitude, longitude),
-                    radius: 1000,
+                    radius: 800,
                     type: placeType,
                 };
     
@@ -138,6 +139,26 @@ export class MapMainComponent implements OnInit, AfterViewInit {
                 this.listService.push({ serviceName: placeType, length: 0, places: [] });
                 resolve();
             }
+        });
+    }
+
+    public circle: any;
+
+    drawSearchRadiusCircle(latitude: number, longitude: number, radius: number): void {
+        // Clear existing circle
+        if (this.circle) {
+            this.circle.setMap(null);
+        }
+
+        // Draw a new circle on the map
+        this.circle = new google.maps.Circle({
+            center: { lat: latitude, lng: longitude },
+            radius: radius,
+            map: this.map,
+            fillColor: '#ADD8E6', // Light blue fill color
+            strokeColor: '#0000FF', // Dark blue border color
+            strokeWeight: 1,
+            clickable: false,
         });
     }
 
