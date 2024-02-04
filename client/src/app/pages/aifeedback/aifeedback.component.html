@@ -1,1 +1,8 @@
-<p>aifeedback works!</p>
+<input type="text" [(ngModel)]="prompt" />
+<button (click)="getDataFromOpenAPI()">Test</button>
+
+
+<h1>AI feedback</h1>
+<p *ngIf="info">
+    {{ info }}
+</p>
