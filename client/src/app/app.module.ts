@@ -11,13 +11,13 @@ import { AppComponent } from '@app/pages/app/app.component';
 import { GamePageComponent } from '@app/pages/game-page/game-page.component';
 import { MainPageComponent } from '@app/pages/main-page/main-page.component';
 import { MaterialPageComponent } from '@app/pages/material-page/material-page.component';
-import { AifeedbackComponent } from './pages/aifeedback/aifeedback.component';
-import { StatsComponent } from './components/stats/stats.component';
-import { MapMainComponent } from './pages/map-main/map-main.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './components/home-page/homepage.component';
 import { MainscreenComponent } from './components/main-screen/main-screen.component';
+import { StatsComponent } from './components/stats/stats.component';
+import { AifeedbackComponent } from './pages/aifeedback/aifeedback.component';
+import { MapMainComponent } from './pages/map-main/map-main.component';
 
 /**
  * Main module that is used in main.ts.
