@@ -1,9 +1,13 @@
 <header>
-    <img class="logo" src="../../assets/logo.png">
+    <img class="logo" src="../../assets/logo.png" (click)="redirectToHome()">
     <nav>
-        <button>Our mission<img class="icon" src="../../assets/mission.png" width="20px" height="20px"></button>
-        <button>About us<img class="icon" src="../../assets/about-us.png" width="20px" height="20px"></button>
-        <button>Buy us a coffee<img class="icon" src="../../assets/coffee.png" width="20px" height="20px"></button>
-        <button>Contact us<img class="icon" src="../../assets/contact-us.png" width="20px" height="20px"></button>
+        <button (click)="redirectToMission()">Our mission<img class="icon" src="../../assets/mission.png" width="20px"
+                height="20px"></button>
+        <button (click)="redirectToAboutUs()">About us<img class="icon" src="../../assets/about-us.png" width="20px"
+                height="20px"></button>
+        <button (click)="openCoffeePage()">Buy us a coffee<img class="icon" src="../../assets/coffee.png" width="20px"
+                height="20px"></button>
+        <button (click)="sendEmail()">Contact us<img class="icon" src="../../assets/contact-us.png" width="20px"
+                height="20px"></button>
     </nav>
 </header>
