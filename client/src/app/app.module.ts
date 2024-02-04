@@ -15,6 +15,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './components/home-page/homepage.component';
 import { MainscreenComponent } from './components/main-screen/main-screen.component';
+import { PlacesNameComponent } from './components/places-name/places-name.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { AboutusComponent } from './pages/about-us/about-us.component';
 import { AifeedbackComponent } from './pages/aifeedback/aifeedback.component';
@@ -42,6 +43,7 @@ import { OurmissionComponent } from './pages/our-mission/our-mission.component';
         MainscreenComponent,
         OurmissionComponent,
         AboutusComponent,
+        PlacesNameComponent,
     ],
     imports: [
         AppMaterialModule,

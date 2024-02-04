@@ -1,52 +1,51 @@
 /* eslint-disable */
 import { Injectable } from '@angular/core';
 import { Service } from '@app/interfaces/Service';
-import { Count } from '@app/interfaces/count';
+import { Count } from '@common/count';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class SharedServiceService {
-  private dataSource = new BehaviorSubject<any>(null);
-  currentData = this.dataSource.asObservable();
+    private dataSource = new BehaviorSubject<any>(null);
+    currentData = this.dataSource.asObservable();
 
-  constructor() { }
+    constructor() {}
 
-  updateData(data: Count) {
-    this.dataSource.next(data);
-  }
-
-  traiterData(listService: Service[]): void {
-    
-    const temp = [...listService];
-    
-    for (let i = 0; i < temp.length; i++) {
-      temp[i] = {...temp[i]};
+    updateData(data: Count) {
+        this.dataSource.next(data);
     }
 
-    console.log(temp);
+    traiterData(listService: Service[]): void {
+        const temp = [...listService];
 
-    const gym = temp[8].length;
-    const hospital = temp[1].length;
-    const restaurant = temp[0].length;
-    const pharma = temp[6].length;
-    const epicerie = temp[5].length;
-    const school = temp[2].length;
-    const parc = temp[4].length;
-    const bus = temp[3].length;
+        for (let i = 0; i < temp.length; i++) {
+            temp[i] = { ...temp[i] };
+        }
 
-    const data: Count = {
-      gym: gym,
-      hospital: hospital,
-      restaurant: restaurant,
-      drugStore: pharma,
-      groceryStore: epicerie,
-      school: school,
-      park: parc,
-      bus: bus,
-    };
+        console.log(temp);
 
-    this.updateData(data)
-  }
+        const gym = { nombre: temp[8].length, listPlace: temp[8].places };
+        const hospital = { nombre: temp[1].length, listPlace: temp[1].places };
+        const restaurant = { nombre: temp[0].length, listPlace: temp[0].places };
+        const pharma = { nombre: temp[6].length, listPlace: temp[6].places };
+        const epicerie = { nombre: temp[5].length, listPlace: temp[5].places };
+        const school = { nombre: temp[2].length, listPlace: temp[2].places };
+        const parc = { nombre: temp[4].length, listPlace: temp[4].places };
+        const bus = { nombre: temp[3].length, listPlace: temp[3].places };
+
+        const data: Count = {
+            gym: gym,
+            hospital: hospital,
+            restaurant: restaurant,
+            drugStore: pharma,
+            groceryStore: epicerie,
+            school: school,
+            park: parc,
+            bus: bus,
+        };
+
+        this.updateData(data);
+    }
 }

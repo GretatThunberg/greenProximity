@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 import { Component, OnInit } from '@angular/core';
-import { Count } from '@app/interfaces/count';
 import { SharedServiceService } from '@app/services/shared-service.service';
 import axios from 'axios';
 import { Subscription } from 'rxjs';
@@ -44,21 +43,6 @@ export class AifeedbackComponent implements OnInit {
                 this.generateAnswer(prompt);
             }
         });
-    }
-
-    testObservable(): void {
-        const testCount: Count = {
-            school: 10,
-            restaurant: 2,
-            groceryStore: 3,
-            park: 1,
-            drugStore: 5,
-            gym: 6,
-            hospital: 7,
-            bus: 8,
-        };
-        console.log(testCount);
-        this.sharedService.updateData(testCount);
     }
 
     displayTextGradually(text: string): void {

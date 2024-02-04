@@ -1,11 +1,16 @@
+import { PlacesService } from '@app/interfaces/Service';
 export interface Count {
-    school: number;
-    restaurant: number;
-    groceryStore: number;
-    park: number;
-    drugStore: number;
-    gym: number;
-    hospital: number;
-    bus: number;
-    metro: number;
+    school: Groupe;
+    restaurant: Groupe;
+    groceryStore: Groupe;
+    park: Groupe;
+    drugStore: Groupe;
+    gym: Groupe;
+    hospital: Groupe;
+    bus: Groupe;
+}
+
+export interface Groupe {
+    listPlace: PlacesService[];
+    nombre: number;
 }

@@ -1,0 +1,10 @@
+<button class="see-more" (click)="seeMore()">See more</button>
+<ng-template #seeMoreDialogContent>
+    <h1 mat-dialog-title>List of {{ nameService }}s !</h1>
+    <div mat-dialog-content>
+        <div *ngFor="let place of places">{{ place.name }}</div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Close</button>
+    </div>
+</ng-template>
