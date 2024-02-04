@@ -1,27 +1,28 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Message } from '@common/message';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
-export class CommunicationService {
-    private readonly baseUrl: string = environment.serverUrl;
+export class UserService {
+    private readonly baseUrl: string = environment.serverUrl + '/api/userinfo';
 
     constructor(private readonly http: HttpClient) {}
-
-    basicGet(): Observable<Message> {
-        return this.http.get<Message>(`${this.baseUrl}/example`).pipe(catchError(this.handleError<Message>('basicGet')));
+    getAllUsers(): Observable<unknown> {
+        return this.http.get<unknown>(`${this.baseUrl}/allUsers`);
     }
 
-    basicPost(message: Message): Observable<HttpResponse<string>> {
-        return this.http.post(`${this.baseUrl}/example/send`, message, { observe: 'response', responseType: 'text' });
+    getUserByEmail(email: string): unknown {
+        return this.http.post<unknown>(`${this.baseUrl}/getUser`, { email });
     }
 
-    private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
-        return () => of(result as T);
+    modifyUser(email: string, newPlace: unknown): unknown {
+        return this.http.put<unknown>(`${this.baseUrl}`, { email, newPlace });
+    }
+
+    addUser(userData: unknown): unknown {
+        return this.http.post<unknown>(`${this.baseUrl}/create`, userData);
     }
 }

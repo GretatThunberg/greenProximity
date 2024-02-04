@@ -1,0 +1,25 @@
+<div class="video-button-div">
+    <div class="slogan" style="left: 30%; text-align: left;">A new world 15 minutes <br> away from you ! </div>
+    <div *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+        <button class="btn button btn-warning second" (click)="auth.logout()">
+            <span>Log out</span>
+        </button>
+    </div>
+    <ng-template #loggedOut style="position: absolute; right: 30%;">
+        <button class="btn button btn-primary second" (click)="auth.loginWithRedirect()"><span>Log in</span></button>
+    </ng-template>
+</div>
+<div class="video-container">
+    <video autoplay loop [muted]="isMuted" controls>
+        <source [src]="videoSource" type="video/mp4" />
+    </video>
+</div>
+
+<!-- <div *ngIf="auth.isAuthenticated$ | async; else loggedOut" style="position: absolute; right: 30%;">
+    <button class="btn btn-warning custom-btn btn-3" (click)="auth.logout()">
+        <span>Log out</span>
+    </button>
+</div>
+<ng-template #loggedOut style="position: absolute; right: 30%;">
+    <button class="btn btn-primary custom-btn btn-3" (click)="auth.loginWithRedirect()"><span>Log in</span></button>
+</ng-template> -->

@@ -1,0 +1,39 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgb(201, 239, 199, 1);
+}
+
+.logo {
+    width: 20%;
+    height: 20%;
+}
+
+nav {
+    padding-left: 7%;
+    margin-right: auto; /* Pushes the buttons to the right */
+    display: flex;
+    gap: 130px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    font-family: 'Allerta Regular', sans-serif;
+    padding: 10px 15px;
+    background: rgb(129, 212, 124);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button img.icon {
+    margin-left: 14px; /* Adjust the space between text and icon */
+}
+
+button:hover {
+    background: rgb(113, 247, 103);
+}

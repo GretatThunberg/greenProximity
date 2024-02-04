@@ -14,6 +14,10 @@ import { MaterialPageComponent } from '@app/pages/material-page/material-page.co
 import { AifeedbackComponent } from './pages/aifeedback/aifeedback.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { MapMainComponent } from './pages/map-main/map-main.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { HeaderComponent } from './components/header/header.component';
+import { HomepageComponent } from './components/home-page/homepage.component';
+import { MainscreenComponent } from './components/main-screen/main-screen.component';
 
 /**
  * Main module that is used in main.ts.
@@ -22,8 +26,34 @@ import { MapMainComponent } from './pages/map-main/map-main.component';
  * Otherwise Angular Cli will not know in which module to put new component
  */
 @NgModule({
-    declarations: [AppComponent, GamePageComponent, MainPageComponent, MaterialPageComponent, PlayAreaComponent, SidebarComponent, AifeedbackComponent, StatsComponent, MapMainComponent],
-    imports: [AppMaterialModule, AppRoutingModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpClientModule],
+    declarations: [
+        AppComponent,
+        GamePageComponent,
+        MainPageComponent,
+        MaterialPageComponent,
+        PlayAreaComponent,
+        SidebarComponent,
+        AifeedbackComponent,
+        StatsComponent,
+        MapMainComponent,
+        HomepageComponent,
+        HeaderComponent,
+        MainscreenComponent,
+    ],
+    imports: [
+        AppMaterialModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AuthModule.forRoot({
+            domain: 'dev-0fpf68oa14husfm0.us.auth0.com',
+            clientId: 'Ci4nLDbaVZc6d0LbyJquOodvo8JImrCf',
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            authorizationParams: { redirect_uri: 'http://localhost:4200/#/ai' },
+        }),
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })
