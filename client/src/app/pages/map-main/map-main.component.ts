@@ -2,6 +2,7 @@
 
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PlacesService, Service } from '@app/interfaces/Service';
+import { SharedServiceService } from '@app/services/shared-service.service';
 declare const google: any;
 @Component({
     selector: 'app-map-main',
@@ -14,7 +15,7 @@ export class MapMainComponent implements OnInit, AfterViewInit {
     listService: Service[] = [];
     @ViewChild('mapElement') mapElement: any;
     @ViewChild('mapSearchField') searchField: ElementRef;
-    constructor() {}
+    constructor(private sharedService: SharedServiceService) {}
 
     ngAfterViewInit(): void {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -31,6 +32,7 @@ export class MapMainComponent implements OnInit, AfterViewInit {
 
     handleMapClick(latLng: any): void {
         // Clear existing marker
+        this.listService = [];
         if (this.marker) {
             this.marker.setMap(null);
         }
@@ -62,50 +64,57 @@ export class MapMainComponent implements OnInit, AfterViewInit {
 
     // Method to execute custom action with coordinates
     processClickedLocation(latitude: number, longitude: number): void {
-        console.log('Processing location:', latitude, longitude);
+        const placeTypes = ['restaurant', 'hospital', 'school', 'bus_station', 'parc', 'grocery_store', 'health clinic', 'drug_store', 'gym', 'metro_station']; // Define place types
+        //let promises = placeTypes.map(placeType => this.searchNearbyPlaces(latitude, longitude, placeType));
 
-        // Define types of places you want to search for
-        const placeTypes = ['restaurant', 'hospital', 'school', 'bus_station', 'parc', 'grocery_store', 'health clinic', 'drug_store', 'gym'];
+        let promiseChain = Promise.resolve();
 
-        // Iterate over each place type and make a Nearby Search request
-        placeTypes.forEach((placeType) => {
-            this.searchNearbyPlaces(latitude, longitude, placeType);
+        for (const placeType of placeTypes) {
+            promiseChain = promiseChain.then(() => this.searchNearbyPlaces(latitude, longitude, placeType));
+        }
+
+        promiseChain.then(() => {
+            this.sharedService.traiterData(this.listService);
         });
+        
+        // Promise.all(promises).then(() => {
+        //     this.sharedService.traiterData(this.listService);
+        // }).catch(error => {
+        //     console.error('Error fetching places:', error);
+        // });
     }
 
-    searchNearbyPlaces(latitude: number, longitude: number, placeType: string): void {
-        // Ensure the PlacesService is available
-        if (google.maps.places) {
-            const placesService = new google.maps.places.PlacesService(this.map);
-
-            // Define the request parameters for the Nearby Search request
-            const request = {
-                location: new google.maps.LatLng(latitude, longitude),
-                radius: 1000, // 1km radius
-                type: placeType,
-            };
-
-            // Perform the Nearby Search request
-            placesService.nearbySearch(request, (results: any[], status: any) => {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    // Process the results (e.g., display markers on the map)
-                    this.processNearbyPlaces(results, placeType);
-                    console.log(this.listService);
-                } else {
-                    console.error(`Nearby Search failed for ${placeType}:`, status);
-                }
-            });
-        } else {
-            console.error('google.maps.places not available');
-        }
+    searchNearbyPlaces(latitude: number, longitude: number, placeType: string): Promise<void> {
+        return new Promise((resolve) => {
+            if (google.maps.places) {
+                const placesService = new google.maps.places.PlacesService(this.map);
+                const request = {
+                    location: new google.maps.LatLng(latitude, longitude),
+                    radius: 1000,
+                    type: placeType,
+                };
+    
+                placesService.nearbySearch(request, (results: any[], status: any) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        this.processNearbyPlaces(results, placeType);
+                    } else {
+                        console.error(`Nearby Search failed for ${placeType}:`, status);
+                        this.listService.push({ serviceName: placeType, length: 0, places: [] });
+                    }
+                    resolve(); 
+                });
+            } else {
+                console.error('google.maps.places not available');
+                this.listService.push({ serviceName: placeType, length: 0, places: [] });
+                resolve();
+            }
+        });
     }
 
     processNearbyPlaces(places: any[], placeType: string): void {
         let newService: Service = { serviceName: placeType, length: places.length, places: [] };
 
-        console.log(`Nearby ${placeType}s:`);
         places.forEach((place) => {
-            console.log(place.name, place.geometry.location.lat(), place.geometry.location.lng());
             let newPlace: PlacesService = { name: place.name, location: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() } };
             newService.places.push(newPlace);
         });
