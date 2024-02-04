@@ -12,6 +12,7 @@ import { GamePageComponent } from '@app/pages/game-page/game-page.component';
 import { MainPageComponent } from '@app/pages/main-page/main-page.component';
 import { MaterialPageComponent } from '@app/pages/material-page/material-page.component';
 import { AifeedbackComponent } from './pages/aifeedback/aifeedback.component';
+import { StatsComponent } from './components/stats/stats.component';
 
 /**
  * Main module that is used in main.ts.
@@ -20,7 +21,7 @@ import { AifeedbackComponent } from './pages/aifeedback/aifeedback.component';
  * Otherwise Angular Cli will not know in which module to put new component
  */
 @NgModule({
-    declarations: [AppComponent, GamePageComponent, MainPageComponent, MaterialPageComponent, PlayAreaComponent, SidebarComponent, AifeedbackComponent],
+    declarations: [AppComponent, GamePageComponent, MainPageComponent, MaterialPageComponent, PlayAreaComponent, SidebarComponent, AifeedbackComponent, StatsComponent],
     imports: [AppMaterialModule, AppRoutingModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpClientModule],
     providers: [],
     bootstrap: [AppComponent],

@@ -1,0 +1,23 @@
+.stats-sidebar {
+    position: fixed; /* Position fixée à l'écran */
+    top: 0; /* Aligné en haut de l'écran */
+    right: 0; /* Aligné à droite de l'écran */
+    width: 250px; /* Largeur de la sidebar */
+    height: 100%; /* Hauteur totale de l'écran */
+    background-color: #f4f4f4; /* Couleur de fond */
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5); /* Ombre pour un effet 3D */
+    overflow-y: auto; /* Permettre le défilement si le contenu dépasse */
+    padding: 20px; 
+  }
+  
+  .progress-bar {
+    height: 20px;
+    margin: 10px 0;
+    border: 1px solid #ccc; 
+  }
+
+  h1 {
+    position: relative;
+    color: rgb(201, 239, 199, 1);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
