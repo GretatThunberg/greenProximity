@@ -1,0 +1,48 @@
+/* Style for the side panel */
+h1 {
+    position: relative;
+    color: rgb(201, 239, 199, 1);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.side-panel {
+    position: fixed;
+    top: 0;
+    left: 0px; /* Adjust the width of the side panel as needed */
+    width: 400px; /* Adjust the width of the side panel as needed */
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2); /* Change the shadow to the left side */
+    overflow-y: auto; /* Add a scrollbar if content overflows */
+    padding: 20px;
+    transition: left 0.3s; /* Smooth animation for sliding in/out */
+  }
+
+  /* Show the side panel when active */
+  .side-panel.active {
+    left: 0;
+  }
+
+  .gradual-content {
+    position: relative;
+    top: 5%;
+    font-family: 'Arial', sans-serif; /* Choose a suitable font */
+    font-size: 16px; /* Adjust the font size as needed */
+    line-height: 1.6; /* Good for readability */
+    color: #333; /* Dark grey color for the text */
+    background-color: #f9f9f9; /* Light background */
+    padding: 20px; /* Add some space inside the container */
+    margin: 10px; /* Space around the container */
+    max-width: 600px; /* Maximum width of the container */
+    text-align: left; /* Align text to the left */
+    overflow-y: auto; /* Add a scrollbar if content overflows */
+    border-radius: 10px; /* Optional: rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Additional styling for the button */
+  button {
+    position: fixed;
+    margin: 20px;
+    left:600px;
+  }

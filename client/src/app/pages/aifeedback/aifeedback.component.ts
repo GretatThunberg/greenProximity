@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { SharedServiceService } from '@app/services/shared-service.service';
 import axios from 'axios';
 import { Subscription } from 'rxjs';
+import { Count } from '@app/interfaces/count';
 
 @Component({
   selector: 'app-aifeedback',
@@ -34,10 +35,44 @@ export class AifeedbackComponent implements OnInit {
     };
 
       this.subscription = this.sharedService.currentData.subscribe(data => {
-        const prompt = "Given this: " + JSON.stringify(data) + "Describe to me in words what you think about what is around me in a 15 minutes walk radius and how it could be improved (Only in a bullet point)";
-        this.generateAnswer(prompt);
+        const prompt = "Given this: " + JSON.stringify(data) + "Describe to me in words what you think about what is around me in a 15 minutes walk radius and how it could be improved like you would talk to a regular person (Only 100 words and write empty lines to make it clear)";
+        if (data) {
+          this.generateAnswer(prompt);
+        }
       }      
     );
+  }
+
+  testObservable(): void {
+    const testCount: Count = {
+      school: 10,
+      restaurant: 2,
+      groceryStore: 3,
+      park: 1,
+      drugStore: 5,
+      gym: 6,
+      hospital: 7,
+      bus: 8,
+      metro: 9
+    }
+    console.log(testCount);
+    this.sharedService.updateData(testCount);
+  }
+
+  displayTextGradually(text: string): void {
+    let i = 0;
+    const container = document.getElementById("gradualtext");
+    if (container) {
+      container.innerHTML = '';
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          container.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(timer);
+        }
+      }, 0.1);
+    }
   }
 
   async generateAnswer(prompt: string) {
@@ -53,6 +88,7 @@ export class AifeedbackComponent implements OnInit {
       const responseDataString = JSON.stringify(response.data, null, 2);
       console.log(JSON.parse(responseDataString));
       this.info = JSON.parse(responseDataString).choices[0].message.content;
+      this.displayTextGradually(this.info ?? '');
     })
     .catch(error => {
       console.error(`Error: ${error.response.status}, ${error.response.data}`);
