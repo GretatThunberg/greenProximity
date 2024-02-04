@@ -16,11 +16,32 @@ export class MapMainComponent implements OnInit, AfterViewInit {
     @ViewChild('mapElement') mapElement: any;
     @ViewChild('mapSearchField') searchField: ElementRef;
     constructor(private sharedService: SharedServiceService) {}
-
+    private isDebouncing: boolean = false;
     ngAfterViewInit(): void {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
             center: { lat: 45.630001, lng: -73.519997 },
             zoom: 11,
+        });
+
+        const searchBox = new google.maps.places.SearchBox(this.searchField.nativeElement);
+        this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.searchField.nativeElement);
+        searchBox.addListener('places_changed', () => {
+            const places = searchBox.getPlaces();
+            if (places.length === 0) {
+                return;
+            }
+            const bounds = new google.maps.LatLngBounds();
+            places.forEach((place: { geometry: { location: any; viewport: any } }) => {
+                if (!place.geometry || !place.geometry.location) {
+                    return;
+                }
+                if (place.geometry.viewport) {
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds(place.geometry.location);
+                }
+            });
+            this.map.fitBounds(bounds);
         });
 
         google.maps.event.addListener(this.map, 'click', (event: any) => {
@@ -32,6 +53,15 @@ export class MapMainComponent implements OnInit, AfterViewInit {
 
     handleMapClick(latLng: any): void {
         // Clear existing marker
+
+        if (this.isDebouncing) {
+            console.log('Please wait a moment before clicking again.');
+            return;
+        }
+
+        this.isDebouncing = true;
+
+        setTimeout(() => this.isDebouncing = false, 9000);
         this.listService = [];
         if (this.marker) {
             this.marker.setMap(null);
