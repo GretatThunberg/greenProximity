@@ -31,7 +31,7 @@ export class AifeedbackComponent implements OnInit {
 
     this.headers = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.apiKey}`
+      'Authorization': `Bearer ${this.apiKey}`, 
     };
 
       this.subscription = this.sharedService.currentData.subscribe(data => {
