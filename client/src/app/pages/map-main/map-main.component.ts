@@ -78,6 +78,8 @@ export class MapMainComponent implements OnInit, AfterViewInit {
         // You can execute your custom action here with the coordinates
         this.processClickedLocation(latLng.lat(), latLng.lng());
         this.drawSearchRadiusCircle(latLng.lat(), latLng.lng(), 800);
+
+
     }
 
     // Method to handle address input changes
@@ -95,7 +97,7 @@ export class MapMainComponent implements OnInit, AfterViewInit {
 
     // Method to execute custom action with coordinates
     processClickedLocation(latitude: number, longitude: number): void {
-        const placeTypes = ['restaurant', 'hospital', 'school', 'bus_station', 'park', 'grocery_store', 'doctor', 'pharmacy', 'gym']; // Define place types
+        const placeTypes = ['restaurant', 'hospital', 'school', 'bus_station', 'park', 'supermarket', 'doctor', 'pharmacy', 'gym']; // Define place types
         //let promises = placeTypes.map(placeType => this.searchNearbyPlaces(latitude, longitude, placeType));
 
         let promiseChain = Promise.resolve();
@@ -127,7 +129,17 @@ export class MapMainComponent implements OnInit, AfterViewInit {
     
                 placesService.nearbySearch(request, (results: any[], status: any) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        this.processNearbyPlaces(results, placeType);
+                        const filteredResults = results.filter((place) => {
+                            const placeLocation = place.geometry.location;
+                            const distance = google.maps.geometry.spherical.computeDistanceBetween(
+                                new google.maps.LatLng(latitude, longitude),
+                                placeLocation,
+                            );
+    
+                            // Adjust the threshold distance based on your requirements
+                            return distance <= 800; // Filter within 1000 meters
+                        });
+                        this.processNearbyPlaces(filteredResults, placeType);
                     } else {
                         console.error(`Nearby Search failed for ${placeType}:`, status);
                         this.listService.push({ serviceName: placeType, length: 0, places: [] });
