@@ -1,23 +1,38 @@
+@keyframes loadBar {
+  from {
+    width: 0%;
+  }
+  to {
+  }
+}
 .stats-sidebar {
-    position: fixed; /* Position fixée à l'écran */
-    top: 0; /* Aligné en haut de l'écran */
-    right: 0; /* Aligné à droite de l'écran */
-    width: 250px; /* Largeur de la sidebar */
-    height: 100%; /* Hauteur totale de l'écran */
-    background-color: #f4f4f4; /* Couleur de fond */
-    box-shadow: -2px 0 5px rgba(0,0,0,0.5); /* Ombre pour un effet 3D */
-    overflow-y: auto; /* Permettre le défilement si le contenu dépasse */
+    position: fixed; 
+    top: 0; 
+    right: 0; 
+    width: 250px; 
+    height: 100%; 
+    background-color: #f4f4f4;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5); 
+    overflow-y: auto; 
     padding: 20px; 
+  }
+
+  .stat-detail {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    color: #333;
   }
   
   .progress-bar {
+    border-radius: 25px;
     height: 20px;
     margin: 10px 0;
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
+    animation: loadBar 2s ease-out forwards;
   }
-
+  
   h1 {
     position: relative;
     color: rgb(201, 239, 199, 1);
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
+  }
