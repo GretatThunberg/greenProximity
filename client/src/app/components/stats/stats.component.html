@@ -1,8 +1,8 @@
 <div class="stats-sidebar">
     <h1>Stats</h1>
     <div *ngFor="let stat of stats">
-      <div>{{ stat.name }}: {{ stat.value }}</div>
-      <div class="progress-bar" [style.width]="stat.value + '%'" [style.backgroundColor]="stat.color"></div>
+      <div class="stat-detail">{{ stat.name }}: {{ stat.value }}</div>
+      <div class="progress-bar" [style.width]="(stat.value / 10) * 100 + '%'" [style.backgroundColor]="stat.color"></div>
     </div>
   </div>
   

@@ -38,11 +38,15 @@ export class StatsComponent implements OnInit, OnDestroy {
   }
   
   private getColor(value: number): string {
-    if (value > 75) return 'red';
-    else if (value > 50) return 'orange';
-    else if (value > 25) return 'yellow';
-    else return 'green';
+    if (value >= 0 && value <= 2) {
+      return 'red'; 
+    } else if (value >= 3 && value <= 6) {
+      return 'yellow'; 
+    } else {
+      return 'rgb(50,205,50)';
+    }
   }
+  
 
   testObservable(): void {
     const testCount: Count = {
@@ -59,5 +63,4 @@ export class StatsComponent implements OnInit, OnDestroy {
     console.log(testCount);
     this.sharedService.updateData(testCount);
   }
-
 }
